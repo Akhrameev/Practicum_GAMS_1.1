@@ -26,4 +26,20 @@ b1_d /0.01/
 b2_d /2.0/
 b3_d /1.0/
 
+variables
+***************************** healthy person variables
+x_h(h)
+* x - sugar level in blood
+y_h(h)
+* y - deviation from the equilibrium level of insulin
+z_h(h)
+* z - meal level
+***************************** diabete variables
+x_d(h)
+y_d(h)
+z_d(h)
+w(h)
+* w - external insulin injections level (diabete only)
+J
+* J - in this task we need to minimize this key functional
 
