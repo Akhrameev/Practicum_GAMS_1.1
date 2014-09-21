@@ -31,7 +31,7 @@ b3_d /1.0/
 T /24.0/
 * T - hours a day
 
-x0 /2.5/
+x0 /1.0/
 *Unknown
 y0 /0.0/
 * values for edges
@@ -44,7 +44,7 @@ B /0.5/
 deltaH;
 * range form 0 to T devide by number of h dots + 1 (T/max(h))
 
-deltaH = card(h) - 1;
+deltaH = T/(card(h) - 1);
 
 variables
 ***************************** healthy person variables
