@@ -36,6 +36,11 @@ x0 /0.0/
 y0 /0.0/
 * values for edges
 
+A /0.0/
+*Unknown
+B /0.0/
+*Unknown
+
 deltaH;
 * range form 0 to T devide by number of h dots + 1 (T/max(h))
 
@@ -106,3 +111,30 @@ x_h.fx(h)$(ord(h) = 1)=x0;
 y_d.fx(h)$(ord(h) = 1)=y0;
 x_d.fx(h)$(ord(h) = 1)=x0;
 * edges
+
+eqy_d(h-1).. y_d(h) =e=  y_d(h-1) +
+             deltaH * (b1_d*(x_d(h-1)-x0) * sign(max(x_d(h-1)-x0,0))
+                            - b2_d*y_d(h-1) + b3_d*w(h-1));
+* as eqy_h, but with diabete koefficients and w
+
+eqx_d(h-1).. x_d(h) =e= x_d(h-1) +
+             deltaH *(-a1_d*x_d(h-1)*y_d(h-1) +
+                     a2_d*(x0-x_d(h-1))*sign(max(x0-x_d(h-1),0)) +
+                     a4_d*(x0-x_d(h-1))*sign(max(x_d(h-1)-x0,0)) +
+                     a3_d*z_d(h-1));
+* as eqx_h, but with diabete koefficients
+
+functionalJ.. J =e= sum(h,
+                 deltaH * (A*sqr((x_d(h)-x_h(h))) + B*sqr(w(h))));
+* summ example from docs:
+*    scalar totsupply total supply over all plants;
+*    totsupply = sum(i, a(i));
+
+model nutritionAndInsulinInjectionsForDiabetes_1 /all/;
+
+solve nutritionAndInsulinInjectionsForDiabetes_1 using dnlp minimizing J;
+
+Parameter PLOT_1 data for plotter;
+PLOT_1("x_diabete-x_healthy",h,"y")=x_d.l(h)-x_h.l(h);
+PLOT_1("x_diabete-x_healthy",h,"x")=ord(h)*deltaH;
+$libinclude gnuplotxyz PLOT_1 x y
