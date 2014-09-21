@@ -31,6 +31,11 @@ b3_d /1.0/
 T /24.0/
 * T - hours a day
 
+x0 /0.0/
+*Unknown
+y0 /0.0/
+* values for edges
+
 deltaH;
 * range form 0 to T devide by number of h dots + 1 (T/max(h))
 
@@ -63,7 +68,7 @@ eqz(h)
 eqx_d(h)
 eqy_d(h)
 * dynamics for diabete
-functionalJ
+functionalJ;
 * just key functional
 
 * here I write for GAMS this multiconditional meal level function
@@ -78,3 +83,26 @@ eqz(h).. z_h(h) =e= 50 * sign(max(ord(h)*deltaH - 8.0,0))  *
                          sign(max(20.3 - ord(h)*deltaH,0)));
 * from 20.0 to 20.3
 
+
+* here I write for GAMS my first (dy/dt) equation (for healthy person)
+* w is for diabete only, so I missed it here
+* H(ksi) replaced with just sign(max(ksi, 0)) function - they are equivalent
+eqy_h(h-1).. y_h(h) =e=  y_h(h-1) +
+             deltaH * (b1_h*(x_h(h-1)-x0) * sign(max(x_h(h-1)-x0,0))
+                            - b2_h*y_h(h-1));
+
+
+* here I write for GAMS my second (dx/dt) equation (for healthy person)
+* again H(ksi) == sign(max(ksi,0)) trick
+* two minuses multiplication made in mind to make equations clearer
+eqx_h(h-1).. x_h(h) =e= x_h(h-1) +
+             deltaH *(-a1_h*x_h(h-1)*y_h(h-1) +
+                     a2_h*(x0-x_h(h-1))*sign(max(x0-x_h(h-1),0)) +
+                     a4_h*(x0-x_h(h-1))*sign(max(x_h(h-1)-x0,0)) +
+                     a3_h*z_h(h-1));
+
+y_h.fx(h)$(ord(h) = 1)=y0;
+x_h.fx(h)$(ord(h) = 1)=x0;
+y_d.fx(h)$(ord(h) = 1)=y0;
+x_d.fx(h)$(ord(h) = 1)=x0;
+* edges
