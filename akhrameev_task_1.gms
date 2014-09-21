@@ -125,7 +125,7 @@ eqx_d(h-1).. x_d(h) =e= x_d(h-1) +
 * as eqx_h, but with diabete koefficients
 
 functionalJ.. J =e= sum(h,
-                 deltaH * (A*sqr((x_d(h)-x_h(h))) + B*sqr(w(h))));
+                 deltaH * (A*sqr(x_d(h)-x_h(h)) + B*sqr(w(h))));
 * summ example from docs:
 *    scalar totsupply total supply over all plants;
 *    totsupply = sum(i, a(i));
