@@ -12,7 +12,7 @@ scalars
 a1_h /0.05/
 a2_h /1.0/
 a3_h /4.0/
-a4_h /0.0/
+a4_h /0.5/
 *Unknown
 b1_h /0.5/
 b2_h /2.0/
@@ -22,7 +22,7 @@ b3_h /1.0/
 a1_d /0.03/
 a2_d /1.0/
 a3_d /4.0/
-a4_d /0.0/
+a4_d /0.5/
 *Unknown
 b1_d /0.01/
 b2_d /2.0/
@@ -31,14 +31,14 @@ b3_d /1.0/
 T /24.0/
 * T - hours a day
 
-x0 /0.0/
+x0 /2.5/
 *Unknown
 y0 /0.0/
 * values for edges
 
-A /0.0/
+A /1.0/
 *Unknown
-B /0.0/
+B /0.5/
 *Unknown
 
 deltaH;
@@ -136,5 +136,9 @@ solve nutritionAndInsulinInjectionsForDiabetes_1 using dnlp minimizing J;
 
 Parameter PLOT_1 data for plotter;
 PLOT_1("x_diabete-x_healthy",h,"y")=x_d.l(h)-x_h.l(h);
-PLOT_1("x_diabete-x_healthy",h,"x")=ord(h)*deltaH;
+* .l (level) is used to get values (to make complilable)
+PLOT_1("x_diabete-x_healthy",h,"x")=ord(h);
 $libinclude gnuplotxyz PLOT_1 x y
+
+
+
