@@ -137,7 +137,7 @@ solve nutritionAndInsulinInjectionsForDiabetes_1 using dnlp minimizing J;
 Parameter PLOT_1 data for plotter;
 PLOT_1("x_diabete-x_healthy",h,"y")=x_d.l(h)-x_h.l(h);
 * .l (level) is used to get values (to make complilable)
-PLOT_1("x_diabete-x_healthy",h,"x")=ord(h);
+PLOT_1("x_diabete-x_healthy",h,"x")=ord(h)*deltaH;
 $libinclude gnuplotxyz PLOT_1 x y
 
 
