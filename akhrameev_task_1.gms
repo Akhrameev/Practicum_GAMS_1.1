@@ -102,8 +102,8 @@ eqy_h(h-1).. y_h(h) =e=  y_h(h-1) +
 * two minuses multiplication made in mind to make equations clearer
 eqx_h(h-1).. x_h(h) =e= x_h(h-1) +
              deltaH *(-a1_h*x_h(h-1)*y_h(h-1) +
-                     a2_h*(x0-x_h(h-1))*sign(max(x0-x_h(h-1),0)) +
-                     a4_h*(x0-x_h(h-1))*sign(max(x_h(h-1)-x0,0)) +
+                     a2_h*(x0-x_h(h-1))*sign(max(x0-x_h(h-1),0)) -
+                     a4_h*(x_h(h-1)-x0)*sign(max(x_h(h-1)-x0,0)) +
                      a3_h*z_h(h-1));
 
 y_h.fx(h)$(ord(h) = 1)=y0;
@@ -119,9 +119,9 @@ eqy_d(h-1).. y_d(h) =e=  y_d(h-1) +
 
 eqx_d(h-1).. x_d(h) =e= x_d(h-1) +
              deltaH *(-a1_d*x_d(h-1)*y_d(h-1) +
-                     a2_d*(x0-x_d(h-1))*sign(max(x0-x_d(h-1),0)) +
-                     a4_d*(x0-x_d(h-1))*sign(max(x_d(h-1)-x0,0)) +
-                     a3_d*z_d(h-1));
+                     a2_d*(x0-x_d(h-1))*sign(max(x0-x_d(h-1),0)) -
+                     a4_d*(x_d(h-1)-x0)*sign(max(x_d(h-1)-x0,0)) +
+                     a3_d*z_h(h-1));
 * as eqx_h, but with diabete koefficients
 
 functionalJ.. J =e= sum(h,
